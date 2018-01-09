@@ -1,16 +1,17 @@
 import math
 from loadDataset import loadDataset
-def getBestSplit(dataset):
+from getRandomFeature import getRandomFeature
+def getBestSplit(dataset,n_features):
     """
     desc:
         获取当前数据集的最佳特征极其最佳分割点
     """
     classLabels = set(sample[-1] for sample in dataset)  #当前数据集的类标签
-    groups = []
     bestScore = math.inf
     bestFeature = None
-    bestPoint = math.inf
-    for index in range(len(dataset[0])-1):  #遍历样本所有特征
+    thredhold = math.inf
+    randomFeatureList = getRandomFeature(dataset,n_features)
+    for index in randomFeatureList:  #遍历样本所有特征
         for row in dataset:
             left = []
             right = []
@@ -33,12 +34,10 @@ def getBestSplit(dataset):
             if gini < bestScore:
                 bestScore = gini
                 bestFeature = index
-                bestPoint = thredhold
-                groups.append(left)
-                groups.append(right)
-    bestSplit = (bestFeature,bestPoint)
-    return bestSplit,groups
+                thredhold = thredhold
+    bestSplit = {"bestFeature":bestFeature,"thredhold":thredhold,"groups":(left,right),"size":len(dataset)}
+    return bestSplit
 if __name__ == "__main__":
     dataset = loadDataset('./RandomForest/dataset.txt')
-    b,g = getBestSplit(dataset)
+    b,g = getBestSplit(dataset,1)
     print(b)
