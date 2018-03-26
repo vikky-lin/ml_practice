@@ -6,13 +6,22 @@ desc:
     下面举一个一元二次函数的例子去解释梯度上升法求极大值。
 """
 # f(x) = -x**2 + 3*x -1 可视化
-# import matplotlib.pyplot as plt 
-# import numpy as np 
+import matplotlib.pyplot as plt 
+import numpy as np 
 # X = np.arange(-8,11,0.1)
 # Y = -X**2 + 3*X - 1
 # plt.plot(X,Y)
 # plt.show()
 
+
+import math
+W0 = np.arange(-8,11,0.1)
+W1 = np.arange(-8,11,0.1)
+Y = W1*2.5+W0
+Z = np.exp(-Y)
+sigmoid = np.log10(1/(1+Z))
+plt.plot(W0,sigmoid)
+plt.show()
 """
     对于上述函数，如果要求函数的极大值，只需要对f(x)求导,让f'(x)=0,其x就是所得解。
     但如果应用梯度上升法求这个函数的极大值,则是需要用一个增量一点点去逼近这个极大值。
@@ -63,9 +72,9 @@ def gradAscent1(x):
                 break
     print("f(x)=-x**2 +3*x-1 的极值点为：",current_x)
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # gradAscent0(5)
-    gradAscent1(5)
+    # gradAscent1(5)
 
 
 """
